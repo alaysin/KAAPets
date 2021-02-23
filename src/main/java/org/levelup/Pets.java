@@ -21,6 +21,9 @@ public class Pets {
     @Column(nullable = false, updatable = true)
     private boolean isReserverd;
 
+    @Enumerated
+    private PetStatus status;
+
     @ManyToOne
     private Breeder breeder;
 

@@ -22,18 +22,22 @@ public class Pets {
     private boolean isReserverd;
 
     @ManyToOne
-    private User owner;
+    private Breeder breeder;
+
+    @ManyToOne
+    private User newOwner;
 
 
     public Pets() {
 
     }
 
-    public Pets(String nickname, String breed, LocalDate birthDay, User owner) {
+    public Pets(String nickname, String breed, LocalDate birthDay, Breeder breeder) {
         this.nickname = nickname;
         this.breed = breed;
         this.birthDay = birthDay;
-        this.owner = owner;
+        this.breeder = breeder;
+        this.isReserverd = false;
     }
 
     public int getId() {
@@ -77,11 +81,11 @@ public class Pets {
         isReserverd = reserverd;
     }
 
-    public User getOwner() {
-        return owner;
+    public Breeder getBreeder() {
+        return breeder;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setBreeder(Breeder breeder) {
+        this.breeder = breeder;
     }
 }

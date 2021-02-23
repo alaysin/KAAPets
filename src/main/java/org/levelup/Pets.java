@@ -19,7 +19,7 @@ public class Pets {
     private LocalDate birthDay;
 
     @Column(nullable = false, updatable = true)
-    private Boolean isReserverd;
+    private boolean isReserverd;
 
     @ManyToOne
     private User owner;

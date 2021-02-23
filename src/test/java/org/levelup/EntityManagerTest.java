@@ -18,19 +18,23 @@ public class EntityManagerTest {
 
         try {
             manager.getTransaction().begin();
-            User user = new User ("test", "aaa", true);
-            manager.persist(user);
-            manager.getTransaction().commit();
+            User user = new User ("test", "aaa", true, "Test1");
 
-            manager.getTransaction().begin();
-            Pets pet = new Pets ("Tabi", "Munchkin", LocalDate.of(2020,1,1), user);
+            manager.persist(user);
+
+            Breeder breeder = new Breeder("Sanych");
+            manager.persist(breeder);
+
+            Pets pet = new Pets ("Tabi", "Munchkin", LocalDate.of(2020,1,1), breeder);
             manager.persist(pet);
+
+
             manager.getTransaction().commit();
 
 
         }finally{
             manager.close();
-            manager.clear();
+            factory.close();
         }
     }
 }

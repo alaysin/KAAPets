@@ -1,6 +1,7 @@
 package org.levelup;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -21,12 +22,17 @@ public class User {
     private String name;
 
 
+    @OneToMany(mappedBy = "newOwner")
+    private List<Pets> pets;
+
+
     public User(){}
 
-    public User(String login, String password, boolean isAdmin) {
+    public User(String login, String password, boolean isAdmin, String name) {
         this.login = login;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.name = name;
     }
 
     public User(String login, String name) {

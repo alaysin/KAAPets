@@ -88,4 +88,20 @@ public class Pets {
     public void setBreeder(Breeder breeder) {
         this.breeder = breeder;
     }
+
+    public boolean isReserverd() {
+        return isReserverd;
+    }
+
+    public void setReserverd(boolean reserverd) {
+        isReserverd = reserverd;
+    }
+
+    public User getNewOwner() {
+        return newOwner;
+    }
+
+    public void setNewOwner(User newOwner) {
+        this.newOwner = newOwner;
+    }
 }

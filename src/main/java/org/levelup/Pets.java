@@ -22,7 +22,7 @@ public class Pets {
     private boolean isReserverd;
 
     @Enumerated
-    private PetStatus status;
+    private PetStatus status = PetStatus.READYFORBOOKING;
 
     @ManyToOne
     private Breeder breeder;
@@ -106,5 +106,13 @@ public class Pets {
 
     public void setNewOwner(User newOwner) {
         this.newOwner = newOwner;
+    }
+
+    public PetStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PetStatus status) {
+        this.status = status;
     }
 }

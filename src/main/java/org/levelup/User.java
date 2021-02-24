@@ -71,4 +71,20 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Pets> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pets> pets) {
+        this.pets = pets;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

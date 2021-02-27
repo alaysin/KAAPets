@@ -1,12 +1,17 @@
 package org.levelup;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class PetsDAO {
     private EntityManager manager;
 
+    @Autowired
     public PetsDAO(EntityManager manager) {
         this.manager = manager;
     }

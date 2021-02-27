@@ -23,6 +23,11 @@ public class Breeder {
         this.breederName = breederName;
     }
 
+    public Breeder(int id, String breederName) {
+        this.id = id;
+        this.breederName = breederName;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package org.levelup;
+package org.levelup.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

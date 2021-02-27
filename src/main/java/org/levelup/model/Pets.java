@@ -1,4 +1,4 @@
-package org.levelup;
+package org.levelup.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;

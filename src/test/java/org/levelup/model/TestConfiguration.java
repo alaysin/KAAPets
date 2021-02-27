@@ -1,4 +1,4 @@
-package org.levelup;
+package org.levelup.model;
 
 
 import org.springframework.context.annotation.Bean;

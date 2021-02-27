@@ -1,6 +1,9 @@
-package org.levelup;
+package org.levelup.model;
 
 import org.junit.Test;
+import org.levelup.model.Breeder;
+import org.levelup.model.Pets;
+import org.levelup.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

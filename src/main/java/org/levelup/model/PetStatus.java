@@ -1,4 +1,4 @@
-package org.levelup;
+package org.levelup.model;
 
 public enum PetStatus {
     READYFORBOOKING,

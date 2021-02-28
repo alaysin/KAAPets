@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -33,15 +34,18 @@ public class PetsDAOTest {
         Breeder breeder = new Breeder("Sanych");
 
         Pets pet = new Pets("Tabi", "Munchkin", date, breeder);
+        Pets pet2 = new Pets("Tati", "Sphynx", date.plusDays(10), breeder);
 
         User user = new User("loginTest", "password", false, "Alex");
 
         pet.setNewOwner(user);
+        pet.setReserverd(true);
 
         manager.getTransaction().begin();
         manager.persist(breeder);
         manager.persist(user);
         manager.persist(pet);
+        manager.persist(pet2);
         manager.getTransaction().commit();
     }
 
@@ -74,5 +78,19 @@ public class PetsDAOTest {
         assertTrue(petsDAO.findingByPetsNewOwner("test").isEmpty());
         assertEquals("Tabi", petsDAO.findingByPetsNewOwner("Alex").get(0).getNickname());
 
+    }
+
+    @Test
+    public void findingByReserved() {
+        assertTrue(petsDAO.findingByReserved(false).isEmpty());
+        assertEquals("Tabi", petsDAO.findingByReserved(true).get(0).getNickname());
+    }
+
+    @Test
+    public void findByBirthDate() {
+        List<Pets> found = petsDAO.findByBirthDate(date);
+        assertEquals("Tabi", found.get(0).getNickname());
+        List<Pets> found2 = petsDAO.findByBirthDate(date.plusDays(9));
+        assertEquals(1, found2.size());
     }
 }

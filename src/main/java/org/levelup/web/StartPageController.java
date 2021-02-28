@@ -16,7 +16,8 @@ import java.util.List;
 public class StartPageController {
     @GetMapping("/")
     public String index(Model model, @RequestParam(defaultValue = "10") int count) {
-        model.addAttribute("title", "Hello, you are using my Pet Booking Service.");
+        model.addAttribute("title2", "Hello, you are using my Pet Booking Service.");
+        model.addAttribute("title", "Pet Booking Service");
         model.addAttribute("pets", loadPets(count));
         return "index";
     }

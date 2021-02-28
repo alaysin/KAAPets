@@ -19,7 +19,7 @@ public class Pets {
     private LocalDate birthDay;
 
     @Column(nullable = false, updatable = true)
-    private boolean isReserverd;
+    private boolean isReserved;
 
     @Enumerated
     private PetStatus status = PetStatus.READYFORBOOKING;
@@ -40,7 +40,7 @@ public class Pets {
         this.breed = breed;
         this.birthDay = birthDay;
         this.breeder = breeder;
-        this.isReserverd = false;
+        this.isReserved = false;
     }
 
     public int getId() {
@@ -76,14 +76,6 @@ public class Pets {
         this.birthDay = birthDay;
     }
 
-    public Boolean getReserverd() {
-        return isReserverd;
-    }
-
-    public void setReserverd(Boolean reserverd) {
-        isReserverd = reserverd;
-    }
-
     public Breeder getBreeder() {
         return breeder;
     }
@@ -92,12 +84,12 @@ public class Pets {
         this.breeder = breeder;
     }
 
-    public boolean isReserverd() {
-        return isReserverd;
+    public boolean isReserved() {
+        return isReserved;
     }
 
-    public void setReserverd(boolean reserverd) {
-        isReserverd = reserverd;
+    public void setReserverd(boolean isReserved) {
+        this.isReserved = isReserved;
     }
 
     public User getNewOwner() {

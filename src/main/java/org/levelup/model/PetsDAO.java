@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -40,6 +41,18 @@ public class PetsDAO {
         }
     }
 
+    public List<Pets> findingByReserved(boolean isReserved) {
+        try {
+            return manager.createQuery(
+                    "from Pets where isReserved =:isReserved",
+                    Pets.class)
+                    .setParameter("isReserved", isReserved)
+                    .getResultList();
+        } catch (NoResultException noResultException) {
+            return null;
+        }
+    }
+
 
     public List<Pets> findingByPetsBreeder(String breederName) {
 
@@ -59,5 +72,12 @@ public class PetsDAO {
                 .getResultList();
     }
 
+    public List<Pets> findByBirthDate (LocalDate referenceDate) {
+        return manager.createQuery(
+                "from Pets where birthDay <= :referenceDate",
+                Pets.class)
+                .setParameter("referenceDate", referenceDate)
+                .getResultList();
+    }
 
 }

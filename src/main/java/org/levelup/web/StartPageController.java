@@ -18,7 +18,10 @@ public class StartPageController {
     public String index(Model model, @RequestParam(defaultValue = "10") int count) {
         model.addAttribute("title2", "Hello, you are using my Pet Booking Service.");
         model.addAttribute("title", "Pet Booking Service");
+        model.addAttribute("error", "You are here, cause something goes wrong.");
+
         model.addAttribute("pets", loadPets(count));
+
         return "index";
     }
 
@@ -30,6 +33,9 @@ public class StartPageController {
             pets.add(new Pets("nickname" + i, "breed" + i, date.plusDays(i), breeder));
 
         }
+        Pets pets1 = new Pets("Test", "Test", date, breeder);
+        pets1.setReserverd(true);
+        pets.add(pets1);
         return pets;
     }
 }

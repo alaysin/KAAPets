@@ -72,7 +72,7 @@ public class PetsDAO {
                 .getResultList();
     }
 
-    public List<Pets> findByBirthDate (LocalDate referenceDate) {
+    public List<Pets> findByBirthDate(LocalDate referenceDate) {
         return manager.createQuery(
                 "from Pets where birthDay <= :referenceDate",
                 Pets.class)

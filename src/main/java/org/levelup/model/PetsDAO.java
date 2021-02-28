@@ -28,18 +28,17 @@ public class PetsDAO {
         }
     }
 
-    public Pets findingByPetsBreed(String breed){
+    public Pets findingByPetsBreed(String breed) {
         try {
             return manager.createQuery(
                     "from Pets where breed = :breed",
                     Pets.class)
                     .setParameter("breed", breed)
                     .getSingleResult();
-        }catch (NoResultException noResultException){
+        } catch (NoResultException noResultException) {
             return null;
         }
     }
-
 
 
     public List<Pets> findingByPetsBreeder(String breederName) {
@@ -51,7 +50,7 @@ public class PetsDAO {
                 .getResultList();
     }
 
-    public List<Pets> findingByPetsNewOwner(String name){
+    public List<Pets> findingByPetsNewOwner(String name) {
 
         return manager.createQuery(
                 "from Pets u where u.newOwner.name = :name",

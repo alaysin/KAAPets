@@ -22,9 +22,22 @@ public class BreedersDAO {
                     "from Breeder where breederName = :breederName", Breeder.class)
                     .setParameter("breederName", breederName)
                     .getSingleResult();
-        }catch (NoResultException noResultException){
+        } catch (NoResultException noResultException) {
             return null;
         }
     }
+//
+//    public Breeder findByPetName(String nickname) {
+//        try {
+//
+//
+//            return manager.createQuery(
+//                     "from Breeder b, Pets p where b.pets.nickname = :nickname", Breeder.class)
+//                    .setParameter("nickname", nickname)
+//                    .getResultList();
+//        } catch (Exception e) {
+//            return null
+//        }
+//    }
 
 }

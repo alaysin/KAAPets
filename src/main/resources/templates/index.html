@@ -9,25 +9,25 @@
 
 <table>
     <tbody>
-        <th>
-            <tr>
-                <td>Nickname</td>
-                <td>Breed</td>
-                <td>Birthday</td>
-                <td>Breeder Name</td>
-                <td>Reserved or not</td>
-            </tr>
-        </th>
-        <th:block th:each="pets : ${pets}">
-            <tr>
-                <td th:text="${pets.nickname}">Nickname</td>
-                <td th:text="${pets.breed}">Breed</td>
-                <td th:text="${pets.birthDay}">Birthday</td>
-                <td th:text="${pets.getBreeder().getBreederName()}">Breeder Name</td>
-                <td th:text="${pets.reserverd}">Reserved or not</td>
-            </tr>
+    <th>
+        <tr>
+            <td>Nickname</td>
+            <td>Breed</td>
+            <td>Birthday</td>
+            <td>Breeder Name</td>
+            <td>Reserved or not</td>
+        </tr>
+    </th>
+    <th:block th:each="pets : ${pets}">
+        <tr>
+            <td th:text="${pets.nickname}">Nickname</td>
+            <td th:text="${pets.breed}">Breed</td>
+            <td th:text="${pets.birthDay}">Birthday</td>
+            <td th:text="${pets.getBreeder().getBreederName()}">Breeder Name</td>
+            <td th:text="${pets.reserverd}">Reserved or not</td>
+        </tr>
 
-        </th:block>
+    </th:block>
     </tbody>
 </table>
 </body>

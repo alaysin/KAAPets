@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-@DirtiesContext(classMode =  DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PetsDAOTest {
 
     @Autowired
@@ -25,10 +25,10 @@ public class PetsDAOTest {
     @Autowired
     private PetsDAO petsDAO;
 
-    private LocalDate date = LocalDate.of(2020,1,1);
+    private LocalDate date = LocalDate.of(2020, 1, 1);
 
     @Before
-    public void configure(){
+    public void configure() {
 
         Breeder breeder = new Breeder("Sanych");
 
@@ -52,8 +52,9 @@ public class PetsDAOTest {
         assertNotNull(found);
         assertEquals("Tabi", found.getNickname());
     }
+
     @Test
-    public void testFindingByPetsBreed(){
+    public void testFindingByPetsBreed() {
         Assert.assertNull(petsDAO.findingByPetsBreed("breed"));
         Pets found = petsDAO.findingByPetsBreed("Munchkin");
         assertNotNull(found);

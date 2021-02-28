@@ -15,27 +15,27 @@ public class EntityManagerTest {
     private EntityManager manager;
 
     @Test
-    public void smokeTest(){
+    public void smokeTest() {
         factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         manager = factory.createEntityManager();
 
         try {
             manager.getTransaction().begin();
-            User user = new User ("test", "aaa", true, "Test1");
+            User user = new User("test", "aaa", true, "Test1");
 
             manager.persist(user);
 
             Breeder breeder = new Breeder("Sanych");
             manager.persist(breeder);
 
-            Pets pet = new Pets ("Tabi", "Munchkin", LocalDate.of(2020,1,1), breeder);
+            Pets pet = new Pets("Tabi", "Munchkin", LocalDate.of(2020, 1, 1), breeder);
             manager.persist(pet);
 
 
             manager.getTransaction().commit();
 
 
-        }finally{
+        } finally {
             manager.close();
             factory.close();
         }

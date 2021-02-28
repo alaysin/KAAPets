@@ -24,7 +24,7 @@ public class BreedersDAOTest {
     private BreedersDAO breedersDAO;
 
     @Before
-    public void configure(){
+    public void configure() {
         Breeder breeder = new Breeder("Sanych");
 
         manager.getTransaction().begin();

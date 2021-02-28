@@ -18,7 +18,7 @@ public class User {
     @Column(nullable = false, unique = false, length = 100)
     private String password;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private boolean isAdmin;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -29,7 +29,8 @@ public class User {
     private List<Pets> pets;
 
 
-    public User(){}
+    public User() {
+    }
 
     public User(String login, String password, boolean isAdmin, String name) {
         this.login = login;

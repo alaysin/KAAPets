@@ -10,10 +10,10 @@ public class Breeder {
     @GeneratedValue
     private int id;
 
-    @Column (nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String breederName;
 
-    @OneToMany (mappedBy = "breeder")
+    @OneToMany(mappedBy = "breeder")
     private List<Pets> pets;
 
     public Breeder() {

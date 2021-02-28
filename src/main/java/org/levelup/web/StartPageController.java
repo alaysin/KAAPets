@@ -14,19 +14,19 @@ import java.util.List;
 
 @Controller
 public class StartPageController {
-    @GetMapping ("/")
-    public String index (Model model, @RequestParam(defaultValue = "10") int count){
+    @GetMapping("/")
+    public String index(Model model, @RequestParam(defaultValue = "10") int count) {
         model.addAttribute("title", "Hello, you are using my Pet Booking Service.");
         model.addAttribute("pets", loadPets(count));
         return "index";
     }
 
-    private List<Pets> loadPets(int count){
+    private List<Pets> loadPets(int count) {
         ArrayList<Pets> pets = new ArrayList<>();
-        LocalDate date = LocalDate.of(2019,1,1);
+        LocalDate date = LocalDate.of(2019, 1, 1);
         Breeder breeder = new Breeder("test");
         for (int i = 0; i < count; i++) {
-            pets.add(new Pets("nickname"+i, "breed"+i, date.plusDays(i), breeder));
+            pets.add(new Pets("nickname" + i, "breed" + i, date.plusDays(i), breeder));
 
         }
         return pets;

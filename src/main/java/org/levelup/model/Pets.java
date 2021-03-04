@@ -43,6 +43,12 @@ public class Pets {
         this.isReserved = false;
     }
 
+    public Pets(String nickname, String breed, LocalDate birthDay) {
+        this.nickname = nickname;
+        this.breed = breed;
+        this.birthDay = birthDay;
+    }
+
     public int getId() {
         return id;
     }

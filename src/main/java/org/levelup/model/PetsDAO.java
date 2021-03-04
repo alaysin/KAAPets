@@ -13,7 +13,7 @@ public class PetsDAO {
     private EntityManager manager;
 
     @Autowired
-    public PetsDAO(EntityManager manager) {
+    public PetsDAO(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 
@@ -78,6 +78,10 @@ public class PetsDAO {
                 Pets.class)
                 .setParameter("referenceDate", referenceDate)
                 .getResultList();
+    }
+
+    public List<Pets> findAll(){
+        return manager.createQuery("from Pets", Pets.class).getResultList();
     }
 
 }

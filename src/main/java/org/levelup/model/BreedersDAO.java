@@ -11,8 +11,7 @@ import java.util.List;
 public class BreedersDAO {
     private EntityManager manager;
 
-    @Autowired
-    public BreedersDAO(EntityManager manager) {
+    public BreedersDAO(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 

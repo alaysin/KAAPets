@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.css">
 </head>
 <body>
+<div class="container">
 <h1 th:text="${subTitle}"></h1>
 
 <table>
@@ -30,5 +32,6 @@
     </th:block>
     </tbody>
 </table>
+</div>
 </body>
 </html>

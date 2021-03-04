@@ -40,6 +40,7 @@ public class PetsDAOTest {
 
         pet.setNewOwner(user);
         pet.setReserverd(true);
+        pet2.setReserverd(true);
 
         manager.getTransaction().begin();
         manager.persist(breeder);

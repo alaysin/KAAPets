@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Configuration
-@ComponentScan(basePackages = "org.levelup")
+@ComponentScan(basePackages = "org.levelup.model")
 public class TestConfiguration {
 
     @Bean

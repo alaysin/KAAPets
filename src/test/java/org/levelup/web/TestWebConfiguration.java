@@ -8,7 +8,7 @@ import org.springframework.context.annotation.FilterType;
 import javax.persistence.EntityManager;
 
 @Configuration
-@ComponentScan(basePackages = "org.levelup.web", excludeFilters = {
+@ComponentScan(basePackages = "org.levelup", excludeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
                 classes = { AppJPAConfiguration.class, PetsBookingApplication.class }

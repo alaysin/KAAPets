@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.EntityManager;
 
 @Controller
 @SessionAttributes("user-session")
-public class RegisterFormController {
+public class RegistrationFormController {
     @Autowired
     private UsersDAO usersDAO;
 
@@ -20,33 +19,33 @@ public class RegisterFormController {
     private EntityManager manager;
 
 
-    @PostMapping("/register")
-    public String submitRegisterForm(
+    @PostMapping("/registration")
+    public String registration(
             Model model,
             @RequestParam String login,
             @RequestParam String password
             //@RequestParam String name
     ) {
-        User added;
+        User registered;
         manager.getTransaction().begin();
         try {
-            added = usersDAO.saveNewUser(login, password);
+            registered = usersDAO.saveNewUser(login, password);
             manager.getTransaction().commit();
         } finally {
             if (manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
         }
-//        model.addAttribute("login", added.getLogin());
-        return "register";
+        model.addAttribute("login", registered.getLogin());
+        return "index";
     }
 
 
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-//        model.addAttribute("users", new User());
+    @GetMapping("/registration")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("users", new User());
 
-        return "register";
+        return "registration";
     }
 
 //    @PostMapping ("/register")

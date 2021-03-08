@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
                 type = FilterType.ASSIGNABLE_TYPE,
                 classes = { AppJPAConfiguration.class,
                         PetsBookingApplication.class,
-                        RegisterFormController.class}
+                        RegistrationFormController.class}
         ) //RegisterFormController.class should removed later
 })
 public class TestWebConfiguration {

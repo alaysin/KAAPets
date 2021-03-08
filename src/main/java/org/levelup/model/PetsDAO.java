@@ -84,4 +84,16 @@ public class PetsDAO {
         return manager.createQuery("from Pets", Pets.class).getResultList();
     }
 
+    public Pets saveNewPet (String nickname, String breed, LocalDate birthday) {
+        Pets newPet = new Pets(nickname, breed, birthday);
+        manager.persist(newPet);
+        return newPet;
+    }
+
+    public Pets saveNewPetWithoutBD (String nickname, String breed) {
+        Pets newPet = new Pets(nickname, breed);
+        manager.persist(newPet);
+        return newPet;
+    }
+
 }

@@ -94,4 +94,22 @@ public class PetsDAOTest {
         List<Pets> found2 = petsDAO.findByBirthDate(date.plusDays(9));
         assertEquals(1, found2.size());
     }
+
+    @Test
+    public void saveNewPet() {
+        manager.getTransaction().begin();
+        Pets added = petsDAO.saveNewPet("Test", "Test", date.minusDays(10));
+        manager.getTransaction().commit();
+
+        manager.refresh(added);
+    }
+
+    @Test
+    public void saveNewPetWithoutBD() {
+        manager.getTransaction().begin();
+        Pets added = petsDAO.saveNewPetWithoutBD("Test", "Test");
+        manager.getTransaction().commit();
+
+        manager.refresh(added);
+    }
 }

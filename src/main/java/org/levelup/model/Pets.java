@@ -1,5 +1,7 @@
 package org.levelup.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -16,7 +18,8 @@ public class Pets {
     private String breed;
 
     @Column(nullable = false, updatable = false, length = 50)
-    private LocalDate birthDay;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthDay  = LocalDate.now();
 
     @Column(nullable = false, updatable = true)
     private boolean isReserved;
@@ -47,6 +50,17 @@ public class Pets {
         this.nickname = nickname;
         this.breed = breed;
         this.birthDay = birthDay;
+        this.isReserved = false;
+//        this.breeder = new Breeder("Default Breeder name");
+    }
+
+    public Pets(String nickname, String breed) {
+        this.nickname = nickname;
+        this.breed = breed;
+        this.birthDay = LocalDate.now().minusMonths(10);
+        this.isReserved = false;
+//        this.breeder = new Breeder("Default Breeder name");
+
     }
 
     public int getId() {

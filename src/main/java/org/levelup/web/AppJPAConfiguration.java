@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 @Configuration
 public class AppJPAConfiguration {
     @Bean
-    public EntityManager entityManager (EntityManagerFactory factory){
+    public EntityManager entityManager(EntityManagerFactory factory) {
         return factory.createEntityManager();
     }
 

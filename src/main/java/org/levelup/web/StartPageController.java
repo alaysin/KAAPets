@@ -30,17 +30,17 @@ public class StartPageController {
             @RequestParam(defaultValue = "10") int count,
             @ModelAttribute("user-session") UserSession userSession
     ) {
-        String title;
+        String subTitle;
         if (userSession.getUserLogin() == null) {
-            title = "Hello, anonymous!";
+            subTitle = "Hello, %anonymous%, you are using my Pet Booking Service!";
         } else {
-            title = "Hello, " + userSession.getUserLogin() + "!";
+            subTitle = "Hello, " + userSession.getUserLogin() + ", you are using my Pet Booking Service!";
         }
 
         model.addAttribute("pets", loadPets(10));
         model.addAttribute("isAdmin", userSession.isAdmin());
         model.addAttribute("isLoggedIn", userSession.getUserLogin() != null);
-        model.addAttribute("subTitle", "Hello, you are using my Pet Booking Service.");
+        model.addAttribute("subTitle", subTitle);
         model.addAttribute("title", "Pet Booking Service");
         model.addAttribute("error", "You are here, cause something goes wrong.");
 

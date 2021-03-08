@@ -7,31 +7,68 @@
 </head>
 <body>
 <div class="container">
-<h1 th:text="${subTitle}"></h1>
+    <h1 th:text="${subTitle}"></h1>
+    <div th:if="${not isLoggedIn}">
+        <a href="/login">Login</a>
+        <!--    <a href="/register">Register</a>-->
+    </div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
 
-<table>
-    <tbody>
-    <th>
         <tr>
-            <td>Nickname</td>
-            <td>Breed</td>
-            <td>Birthday</td>
-            <td>Breeder Name</td>
-            <td>Reserved or not</td>
-        </tr>
-    </th>
-    <th:block th:each="pets : ${pets}">
-        <tr>
-            <td th:text="${pets.nickname}">Nickname</td>
-            <td th:text="${pets.breed}">Breed</td>
-            <td th:text="${pets.birthDay}">Birthday</td>
-            <td th:text="${pets.getBreeder().getBreederName()}">Breeder Name</td>
-            <td th:text="${pets.isReserved}">Reserved or not</td>
+            <th scope="row"></th>
+            <th scope="col">Nickname</th>
+            <th scope="col">Breed</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Breeder Name</th>
+            <th scope="col">Reserved or not</th>
+
         </tr>
 
-    </th:block>
-    </tbody>
-</table>
+        </thead>
+        <tbody th:if="${not pets.isEmpty()}">
+
+        <th:block th:each="pet : ${pets}">
+            <tr>
+                <th scope="row"></th>
+                <td th:text="${pet.nickname}">Nickname</td>
+                <td th:text="${pet.breed}">Breed</td>
+                <td th:text="${pet.birthDay}">Birthday</td>
+                <td th:text="${pet.breeder}">Breeder Name</td>
+                <td th:text="${pet.isReserved}">Reserved or not</td>
+            </tr>
+
+        </th:block>
+        </tbody>
+        <tbody th:if="${pets.isEmpty()}">
+        <tr>
+            <td> No pets found.</td>
+        </tr>
+        </tbody>
+    </table>
+    <form action="/add" method="post" th:if="${isAdmin}">
+        <p>
+            <label>
+                Pet nickname:
+                <input type="text" name="nickname">
+            </label>
+        </p>
+        <p>
+            <label>
+                Breed:
+                <input type="text" name="breed">
+            </label>
+        </p>
+        <p>
+            <label>
+                Birth Day:
+                <input type="date" name="birthday">
+            </label>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
 </div>
 </body>
 </html>

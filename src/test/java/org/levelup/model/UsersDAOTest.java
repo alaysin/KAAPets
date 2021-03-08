@@ -58,4 +58,24 @@ public class UsersDAOTest {
         assertEquals("login777", usersDAO.findByIsAdmin(false).get(0).getLogin());
         assertTrue(usersDAO.findByIsAdmin(true).isEmpty());
     }
+
+    @Test
+    public void saveNewUserWithName() {
+        manager.getTransaction().begin();
+        User added = usersDAO.saveNewUserWithName("Login", "Password", "Name");
+        manager.getTransaction().commit();
+
+        manager.refresh(added);
+    }
+
+    @Test
+    public void saveNewUser() {
+        manager.getTransaction().begin();
+        User added = usersDAO.saveNewUser("Login", "Password");
+        manager.getTransaction().commit();
+
+        manager.refresh(added);
+    }
+
+
 }

@@ -12,8 +12,7 @@ import java.util.List;
 public class UsersDAO {
     private EntityManager manager;
 
-    @Autowired
-    public UsersDAO(EntityManager manager) {
+    public UsersDAO(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 
@@ -47,6 +46,18 @@ public class UsersDAO {
         return manager.createNamedQuery("findByIsAdmin", User.class)
                 .setParameter("isAdmin", isAdmin)
                 .getResultList();
+    }
+
+    public User saveNewUserWithName (String login, String password, String name) {
+        User newUser = new User(login, password, name);
+        manager.persist(newUser);
+        return newUser;
+    }
+
+    public User saveNewUser (String login, String password) {
+        User newUser = new User(login, password);
+        manager.persist(newUser);
+        return newUser;
     }
 
 

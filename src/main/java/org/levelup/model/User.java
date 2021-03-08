@@ -21,7 +21,7 @@ public class User {
     @Column(nullable = false)
     private boolean isAdmin;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(unique = false, length = 50)
     private String name;
 
 
@@ -32,6 +32,13 @@ public class User {
     public User() {
     }
 
+    public User(String login, String password, String name) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.isAdmin = false;
+    }
+
     public User(String login, String password, boolean isAdmin, String name) {
         this.login = login;
         this.password = password;
@@ -39,9 +46,10 @@ public class User {
         this.name = name;
     }
 
-    public User(String login, String name) {
+    public User(String login, String password) {
         this.login = login;
-        this.name = name;
+        this.password = password;
+        this.isAdmin = false;
     }
 
     public String getLogin() {

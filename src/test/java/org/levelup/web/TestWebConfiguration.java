@@ -11,8 +11,10 @@ import javax.persistence.EntityManager;
 @ComponentScan(basePackages = "org.levelup.web", excludeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
-                classes = { AppJPAConfiguration.class, PetsBookingApplication.class }
-        )
+                classes = { AppJPAConfiguration.class,
+                        PetsBookingApplication.class,
+                        RegisterFormController.class}
+        ) //RegisterFormController.class should removed later
 })
 public class TestWebConfiguration {
     @MockBean

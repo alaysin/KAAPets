@@ -49,9 +49,14 @@ public class AddFormControllerTest {
         Mockito.when(petsDAO.saveNewPetWithoutBD(matches("NicknameOne"), matches("BreedOne")))
                 .thenReturn(added);
 
+        UserSession userSession = new UserSession();
+        userSession.setUserLogin("admin");
+        userSession.setAdmin(true);
+
         mvc.perform(post("/add")
                 .param("nickname", "NicknameOne")
                 .param("breed", "BreedOne")
+                .sessionAttr("user-session", userSession)
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("nickname", "NicknameOne"));

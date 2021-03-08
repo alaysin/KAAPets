@@ -9,8 +9,16 @@
 <div class="container">
     <h1 th:text="${subTitle}"></h1>
     <div th:if="${not isLoggedIn}">
-        <a href="/login">Login</a>
-        <!--    <a href="/register">Register</a>-->
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/register">Register</a>
+            </li>
+        </ul>
+
+
     </div>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -48,7 +56,7 @@
     </table>
     <form action="/add" method="post" th:if="${isAdmin}">
         <p>
-            <label>
+            <label >
                 Pet nickname:
                 <input type="text" name="nickname">
             </label>

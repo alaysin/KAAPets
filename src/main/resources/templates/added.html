@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.css">
 </head>
 <body>
-<p> Added pet is: </p>
-<p>Pet with name: <span th:text="${nickname}"></span>
-    <span> and breed: </span>
-    <span th:text="${breed}"></span> added successfuly!</p>
+<p class="h3"> Added pet is: </p>
+<p>Pet with name: "<span class="badge bg-light text-dark"
+                         th:text="${nickname}"></span>
+    <span>" and breed: "</span>
+    <span class="badge bg-light text-dark"
+          th:text="${breed}"></span>" added successfuly!</p>
 
 </body>
 </html>

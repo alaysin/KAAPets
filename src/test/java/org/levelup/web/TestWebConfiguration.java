@@ -8,13 +8,13 @@ import org.springframework.context.annotation.FilterType;
 import javax.persistence.EntityManager;
 
 @Configuration
-@ComponentScan(basePackages = "org.levelup.web", excludeFilters = {
+@ComponentScan(basePackages = {"org.levelup.web", "org.levelup.model"}, excludeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
-                classes = { AppJPAConfiguration.class,
-                        PetsBookingApplication.class,
-                        RegistrationFormController.class}
-        ) //RegisterFormController.class should removed later
+                classes = {
+                        AppJPAConfiguration.class,
+                        PetsBookingApplication.class}
+        )
 })
 public class TestWebConfiguration {
     @MockBean

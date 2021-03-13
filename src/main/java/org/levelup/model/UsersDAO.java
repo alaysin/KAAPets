@@ -1,6 +1,8 @@
 package org.levelup.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -10,55 +12,24 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class UsersDAO {
-    private EntityManager manager;
+public interface UsersDAO extends JpaRepository<User, Integer> {
 
-    @Autowired
-    public UsersDAO(@Autowired EntityManager manager) {
-        this.manager = manager;
-    }
+    public User findByLogin(String login);
 
-    public User findByLogin(String login) {
-        try {
-            return manager.createQuery(
-                    "from User where login = :loginParameter",
-                    User.class)
-                    .setParameter("loginParameter", login)
-                    .getSingleResult();
-        } catch (NoResultException notFound) {
-            return null;
-        }
-    }
+    public User findByLoginAndPassword(String login, String password);
 
-    public User findByLoginAndPassword(String login, String password) {
-        try {
-            return manager.createQuery(
-                    "from User where login = :loginParameter and password = :password",
-                    User.class)
-                    .setParameter("loginParameter", login)
-                    .setParameter("password", password)
-                    .getSingleResult();
-        } catch (NoResultException notFound) {
-            return null;
-        }
+    @Query(name = "findByIsAdmin")
+    public List<User> findByIsAdmin(boolean isAdmin);
 
-    }
-
-    public List<User> findByIsAdmin(boolean isAdmin) {
-        return manager.createNamedQuery("findByIsAdmin", User.class)
-                .setParameter("isAdmin", isAdmin)
-                .getResultList();
-    }
-
-    public User saveNewUserWithName (String login, String password, String name) {
+    public default User saveNewUserWithName (String login, String password, String name) {
         User newUser = new User(login, password, name);
-        manager.persist(newUser);
+        save(newUser);
         return newUser;
     }
 
-    public User saveNewUser (String login, String password) {
+    public default User saveNewUser (String login, String password) {
         User newUser = new User(login, password);
-        manager.persist(newUser);
+        save(newUser);
         return newUser;
     }
 

@@ -6,6 +6,7 @@ import org.levelup.model.PetsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,9 @@ public class AddFormController {
     @Autowired
     private PetsDAO petsDAO;
 
-    @Autowired
-    private EntityManager manager;
 
     @PostMapping("/add")
+    @Transactional
     public String add(Model model,
                       @RequestParam String nickname,
                       @RequestParam String breed,
@@ -42,17 +42,12 @@ public class AddFormController {
             throw new RuntimeException("User is not admin");
         }
 
-        Pets added;
-        manager.getTransaction().begin();
-        try {
+        Pets added = petsDAO.saveNewPetWithoutBD(nickname, breed);
+
 //            added = petsDAO.saveNewPet(nickname, breed, birthDay);
-            added = petsDAO.saveNewPetWithoutBD(nickname, breed);
-            manager.getTransaction().commit();
-        } finally {
-            if (manager.getTransaction().isActive()) {
-                manager.getTransaction().rollback();
-            }
-        }
+
+
+
 
         model.addAttribute("nickname", added.getNickname());
         model.addAttribute("breed", added.getBreed());

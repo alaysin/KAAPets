@@ -1,7 +1,11 @@
 package org.levelup.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -9,90 +13,35 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class PetsDAO {
-    private EntityManager manager;
-
-    @Autowired
-    public PetsDAO(@Autowired EntityManager manager) {
-        this.manager = manager;
-    }
-
-    public Pets findingByPetsNickname(String nickname) {
-        try {
-            return manager.createQuery(
-                    "from Pets where nickname = :nickname",
-                    Pets.class)
-                    .setParameter("nickname", nickname)
-                    .getSingleResult();
-        } catch (NoResultException notFound) {
-            return null;
-        }
-    }
-
-    public Pets findingByPetsBreed(String breed) {
-        try {
-            return manager.createQuery(
-                    "from Pets where breed = :breed",
-                    Pets.class)
-                    .setParameter("breed", breed)
-                    .getSingleResult();
-        } catch (NoResultException noResultException) {
-            return null;
-        }
-    }
-
-    public List<Pets> findingByReserved(boolean isReserved) {
-        try {
-            return manager.createQuery(
-                    "from Pets where isReserved =:isReserved",
-                    Pets.class)
-                    .setParameter("isReserved", isReserved)
-                    .getResultList();
-        } catch (NoResultException noResultException) {
-            return null;
-        }
-    }
+public interface PetsDAO extends JpaRepository<Pets, Integer> {
 
 
-    public List<Pets> findingByPetsBreeder(String breederName) {
+    public Pets findByNickname(String nickname);
 
-        return manager.createQuery(
-                "from Pets p where p.breeder.breederName = :breederName",
-                Pets.class)
-                .setParameter("breederName", breederName)
-                .getResultList();
-    }
+    public Pets findByBreed(String breed);
 
-    public List<Pets> findingByPetsNewOwner(String name) {
+    public List<Pets> findByIsReserved(boolean isReserved);
 
-        return manager.createQuery(
-                "from Pets u where u.newOwner.name = :name",
-                Pets.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
+    @Query("from Pets p where p.breeder.breederName = :breederName")
+    public List<Pets> findByBreeder_BreederName(@Param("breederName") String breederName);
 
-    public List<Pets> findByBirthDate(LocalDate referenceDate) {
-        return manager.createQuery(
-                "from Pets where birthDay <= :referenceDate",
-                Pets.class)
-                .setParameter("referenceDate", referenceDate)
-                .getResultList();
-    }
+    @Query("from Pets u where u.newOwner.name = :name")
+    public List<Pets> findByNewOwner_Name(@Param("name") String name);
 
-    public List<Pets> findAll(){
-        return manager.createQuery("from Pets", Pets.class).getResultList();
-    }
 
-    public Pets saveNewPet (String nickname, String breed, LocalDate birthday) {
+    public List<Pets> findByBirthDay(LocalDate birthDate);
+
+    @Transactional
+    public default Pets saveNewPet (String nickname, String breed, LocalDate birthday) {
         Pets newPet = new Pets(nickname, breed, birthday);
-        manager.persist(newPet);
+        save(newPet);
         return newPet;
     }
 
-    public Pets saveNewPetWithoutBD (String nickname, String breed) {
+    @Transactional
+    public default Pets saveNewPetWithoutBD (String nickname, String breed) {
         Pets newPet = new Pets(nickname, breed);
-        manager.persist(newPet);
+        save(newPet);
         return newPet;
     }
 

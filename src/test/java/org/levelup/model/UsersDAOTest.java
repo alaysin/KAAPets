@@ -4,21 +4,26 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@SpringBootTest
+@Transactional
 public class UsersDAOTest {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Autowired
@@ -27,10 +32,7 @@ public class UsersDAOTest {
     @Before
     public void configure() {
         User newUser = new User("login777", "pass", false, "sanych");
-
-        manager.getTransaction().begin();
-        manager.persist(newUser);
-        manager.getTransaction().commit();
+        usersDAO.save(newUser);
     }
 
     @Test
@@ -61,20 +63,16 @@ public class UsersDAOTest {
 
     @Test
     public void saveNewUserWithName() {
-        manager.getTransaction().begin();
         User added = usersDAO.saveNewUserWithName("Login", "Password", "Name");
-        manager.getTransaction().commit();
 
-        manager.refresh(added);
+//        manager.refresh(added);
     }
 
     @Test
     public void saveNewUser() {
-        manager.getTransaction().begin();
         User added = usersDAO.saveNewUser("Login", "Password");
-        manager.getTransaction().commit();
 
-        manager.refresh(added);
+//        manager.refresh(added);
     }
 
 

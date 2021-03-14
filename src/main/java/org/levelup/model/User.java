@@ -25,8 +25,7 @@ public class User {
     @Column(nullable = false)
     private boolean isAdmin;
 
-    @Column(unique = false, length = 50)
-    @NotBlank
+    @Column(length = 50)
     private String name;
 
 
@@ -55,6 +54,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.isAdmin = false;
+        this.name = " ";
     }
 
     public String getLogin() {

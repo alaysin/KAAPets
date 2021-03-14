@@ -54,12 +54,12 @@ public class AddFormControllerTest {
         userSession.setAdmin(true);
 
         mvc.perform(post("/add")
-                .param("nickname", "NicknameOne")
-                .param("breed", "BreedOne")
+                .param("petsName", "NicknameOne")
+                .param("petsBreed", "BreedOne")
                 .sessionAttr("user-session", userSession)
         )
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("nickname", "NicknameOne"));
+                .andExpect(model().attribute("petsName", "NicknameOne"));
 
         Mockito.verify(petsDAO, Mockito.atLeast(1))
                 .saveNewPetWithoutBD("NicknameOne", "BreedOne");

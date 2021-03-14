@@ -33,6 +33,8 @@ public class PetsDAOTest {
 
     private LocalDate date = LocalDate.of(2020, 1, 1);
 
+    private LocalDate reservDate = LocalDate.now();
+
     @Before
     public void configure() {
 
@@ -46,6 +48,8 @@ public class PetsDAOTest {
         pet.setNewOwner(user);
         pet.setReserverd(true);
         pet2.setReserverd(true);
+        pet.setReservationDate(reservDate.plusDays(2));
+        pet2.setReservationDate(reservDate);
 
         manager.persist(breeder);
         manager.persist(user);
@@ -96,6 +100,14 @@ public class PetsDAOTest {
         assertEquals("Tabi", found.get(0).getNickname());
         List<Pets> found2 = petsDAO.findByBirthDay(date.plusDays(10));
         assertEquals(1, found2.size());
+    }
+
+    @Test
+    public void findByReservationDate(){
+        List<Pets> found = petsDAO.findByReservationDateAfter(reservDate);
+        assertEquals("Tabi", found.get(0).getNickname());
+        List<Pets> found2 = petsDAO.findByReservationDateAfter(reservDate.minusDays(1));
+        assertEquals(2, found2.size());
     }
 
     @Test

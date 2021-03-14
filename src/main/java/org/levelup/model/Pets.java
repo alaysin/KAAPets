@@ -3,6 +3,8 @@ package org.levelup.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Entity
@@ -23,6 +25,9 @@ public class Pets {
 
     @Column(nullable = false, updatable = true)
     private boolean isReserved;
+
+    @Column(updatable = false, length = 50)
+    private LocalDate reservationDate;// = LocalDate.now();
 
     @Enumerated
     private PetStatus status = PetStatus.READYFORBOOKING;
@@ -126,5 +131,17 @@ public class Pets {
 
     public void setStatus(PetStatus status) {
         this.status = status;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
+    }
+
+    public LocalDate getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(LocalDate reservationDate) {
+        this.reservationDate = reservationDate;
     }
 }

@@ -31,6 +31,8 @@ public interface PetsDAO extends JpaRepository<Pets, Integer> {
 
     public List<Pets> findByBirthDay(LocalDate birthDate);
 
+    public List<Pets> findByReservationDateAfter(LocalDate reservationDate);
+
     @Transactional
     public default Pets saveNewPet (String nickname, String breed, LocalDate birthday) {
         Pets newPet = new Pets(nickname, breed, birthday);

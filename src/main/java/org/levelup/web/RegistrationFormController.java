@@ -49,7 +49,7 @@ public class RegistrationFormController {
         User registered;
 
         try {
-            registered = usersDAO.saveNewUser(form.getUserLogin(), form.getPassword());
+            registered = usersDAO.saveNewUserWithName(form.getUserLogin(), form.getPassword(), form.getUserName());
         } catch (ConstraintViolationException constraintViolationException) {
             bindingResult.addError(new FieldError("form",
                     "userLogin", "Login is not available"
@@ -59,6 +59,7 @@ public class RegistrationFormController {
         model.addAttribute("userLogin", registered.getLogin());
         model.addAttribute("userPassword", registered.getPassword());
         model.addAttribute("isAdmin", registered.isAdmin());
+        model.addAttribute("userName", registered.getName());
         return "/login" ;
     }
 

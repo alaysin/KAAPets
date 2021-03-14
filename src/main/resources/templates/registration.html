@@ -39,7 +39,6 @@
                         New user Login:
                         <input type="text" name="userLogin" th:text="*{userLogin}">
                     </label>
-
                     <span th:if="${bindingResult.hasFieldErrors('userLogin')}"
                           th:text="${bindingResult.getFieldErrors('userLogin')}"></span>
                 </p>
@@ -51,6 +50,15 @@
 
                     <span th:if="${bindingResult.hasFieldErrors('password')}"
                           th:text="${bindingResult.getFieldErrors('password')}"></span>
+                </p>
+
+                <p>
+                    <label >
+                        New user Name:
+                        <input type="text" name="userName" th:text="*{userName}">
+                    </label>
+                    <span th:if="${bindingResult.hasFieldErrors('userName')}"
+                          th:text="${bindingResult.getFieldErrors('userName')}"></span>
                 </p>
 
             <button type="submit" class="btn btn-primary">Registration</button>

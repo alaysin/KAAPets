@@ -14,6 +14,10 @@ public class AddUserForm {
     @Length(max = 50)
     private String password;
 
+    @NotBlank
+    @Length(max = 50)
+    private String userName;
+
     private boolean isAdmin;
 
     public String getUserLogin() {
@@ -43,9 +47,18 @@ public class AddUserForm {
     public AddUserForm() {
     }
 
-    public AddUserForm(@NotBlank @Length(max = 50) String userLogin, @NotBlank @Length(max = 50) String password) {
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public AddUserForm(String userLogin, String password, String userName) {
         this.userLogin = userLogin;
         this.password = password;
+        this.userName = userName;
         this.isAdmin = false;
     }
 }

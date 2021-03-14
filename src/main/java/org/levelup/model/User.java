@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-@Table(name = "Users")
+//@Table(name = "Users")
 @NamedQueries({
         @NamedQuery(name = "findByIsAdmin", query = "from User where isAdmin = :isAdmin"),
 })
@@ -54,7 +54,6 @@ public class User {
         this.login = login;
         this.password = password;
         this.isAdmin = false;
-        this.name = " ";
     }
 
     public String getLogin() {

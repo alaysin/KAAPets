@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,6 +18,7 @@ import javax.persistence.Persistence;
 @ComponentScan(basePackages = "org.levelup.model")
 @EnableJpaRepositories(basePackages = "org.levelup.model")
 @EnableTransactionManagement
+@EnableWebMvc
 public class TestConfiguration {
 
 //    @Bean

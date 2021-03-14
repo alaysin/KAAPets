@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Pets Adding Form</title>
+</head>
+<body>
+<form action="/add" method="post" th:object="${form}">
+    <p>
+        <label >
+            Pet nickname:
+            <input type="text" name="petsName" th:text="*{petsName}">
+        </label>
+        <span th:if="${bindingResult.hasFieldErrors('petsName')}"
+              th:text="${bindingResult.getFieldErrors('petsName')}"></span>
+    </p>
+    <p>
+        <label>
+            Breed:
+            <input type="text" name="petsBreed" th:text="*{petsBreed}">
+        </label>
+
+        <span th:if="${bindingResult.hasFieldErrors('petsBreed')}"
+              th:text="${bindingResult.getFieldErrors('petsBreed')}"></span>
+    </p>
+    <p>
+        <label>
+            Birth Day:
+            <input type="date" name="petsBirthDate" th:value="*{petsBirthDate}">
+
+            <span th:if="${bindingResult.hasFieldErrors('petsBirthDate')}"
+                  th:text="${bindingResult.getFieldErrors('petsBirthDate')}"></span>
+        </label>
+    </p>
+    <p>
+        <input type="submit">
+    </p>
+</form>
+</body>
+</html>

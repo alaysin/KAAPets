@@ -14,16 +14,21 @@ public class Pets {
     private int id;
 
     @Column(nullable = false, updatable = false, length = 50)
+    @javax.validation.constraints.NotBlank
+    @NotBlank
     private String nickname;
 
+    @NotBlank
     @Column(nullable = false, updatable = false, length = 50)
     private String breed;
 
     @Column(nullable = false, updatable = false, length = 50)
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Past
     private LocalDate birthDay  = LocalDate.now();
 
     @Column(nullable = false, updatable = true)
+
     private boolean isReserved;
 
     @Column(updatable = false, length = 50)

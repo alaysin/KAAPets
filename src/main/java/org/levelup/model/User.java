@@ -1,6 +1,7 @@
 package org.levelup.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -12,16 +13,20 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
+
     @Column(nullable = false, unique = true, length = 100)
+    @NotBlank
     private String login;
 
     @Column(nullable = false, unique = false, length = 100)
+    @NotBlank
     private String password;
 
     @Column(nullable = false)
     private boolean isAdmin;
 
     @Column(unique = false, length = 50)
+    @NotBlank
     private String name;
 
 

@@ -8,10 +8,16 @@
 <body>
 <p class="h3"> Added pet is: </p>
 <p>Pet with name: "<span class="badge bg-light text-dark"
-                         th:text="${nickname}"></span>
+                         th:text="${petsName}"></span>
     <span>" and breed: "</span>
     <span class="badge bg-light text-dark"
-          th:text="${breed}"></span>" added successfuly!</p>
+          th:text="${petsBreed}"></span>
+    <span>" and birthday: "</span>
+    <span class="badge bg-light text-dark"
+          th:text="${petsBirthDate}"></span>
+    " added successfuly!
+</p>
 
+    <a class="btn btn-secondary" aria-current="page" href="/" role="button">Return to main page</a>
 </body>
 </html>

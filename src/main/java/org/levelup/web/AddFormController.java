@@ -1,5 +1,6 @@
 package org.levelup.web;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.levelup.model.BreedersDAO;
 import org.levelup.model.Pets;
 import org.levelup.model.PetsDAO;
@@ -8,10 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,30 +31,62 @@ public class AddFormController {
     @Autowired
     private PetsDAO petsDAO;
 
+    @GetMapping("/add")
+    public String add(
+            Model model,
+            @ModelAttribute AddPetsForm form,
+            BindingResult bindingResult
+    ) {
+        model.addAttribute("form", form);
+        model.addAttribute("bindingResult", bindingResult);
+        return "addPet";
+    }
 
     @PostMapping("/add")
     @Transactional
     public String add(Model model,
-                      @RequestParam String nickname,
-                      @RequestParam String breed,
+                      @Valid AddPetsForm form,
 //                      @RequestParam
 //                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //                      @ModelAttribute LocalDate birthDay
-                      @ModelAttribute("user-session") UserSession session
+                      @ModelAttribute("user-session") UserSession session,
+                      BindingResult bindingResult
     ) {
+        model.addAttribute("form", form);
+        model.addAttribute("bindingResult", bindingResult);
+
         if (session.getUserLogin() == null || !session.isAdmin()) {
             throw new RuntimeException("User is not admin");
         }
 
-        Pets added = petsDAO.saveNewPetWithoutBD(nickname, breed);
+        if (bindingResult.hasErrors()) {
+            return "addPet";
+        }
+
+        Pets added;
+
+//        try {
+//            added = petsDAO.saveNewPetWithoutBD(form.getPetsName(), form.getPetsBreed());
+//        } catch (ConstraintViolationException constraintViolationException) {
+//            bindingResult.addError(new FieldError("form",
+//                    "petsNickname", "Nickname is not correct"));
+//            return "addPet";
+//        }
+
+        try {
+            added = petsDAO.saveNewPet(form.getPetsName(), form.getPetsBreed(), form.getPetsBirthDate());
+        } catch (ConstraintViolationException constraintViolationException) {
+            bindingResult.addError(new FieldError("form",
+                    "petsNickname", "Nickname is not correct"));
+            return "addPet";
+        }
 
 //            added = petsDAO.saveNewPet(nickname, breed, birthDay);
 
 
-
-
-        model.addAttribute("nickname", added.getNickname());
-        model.addAttribute("breed", added.getBreed());
+        model.addAttribute("petsName", added.getNickname());
+        model.addAttribute("petsBreed", added.getBreed());
+        model.addAttribute("petsBirthDate", added.getBirthDay());
         return "added";
     }
 
@@ -58,7 +94,7 @@ public class AddFormController {
     protected void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
             @Override
-            public void setAsText(String text) throws IllegalArgumentException{
+            public void setAsText(String text) throws IllegalArgumentException {
                 setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             }
 

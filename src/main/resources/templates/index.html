@@ -30,7 +30,7 @@
             <th scope="col">Birthday</th>
             <th scope="col">Breeder Name</th>
             <th scope="col">Reserved or not</th>
-
+            <th scope="col">Reservation Date</th>
         </tr>
 
         </thead>
@@ -44,6 +44,7 @@
                 <td th:text="${pet.birthDay}">Birthday</td>
                 <td th:text="${pet.breeder}">Breeder Name</td>
                 <td th:text="${pet.isReserved}">Reserved or not</td>
+                <td th:text="${pet.reservationDate}">Reservation Date</td>
             </tr>
 
         </th:block>
@@ -54,29 +55,9 @@
         </tr>
         </tbody>
     </table>
-    <form action="/add" method="post" th:if="${isAdmin}">
-        <p>
-            <label >
-                Pet nickname:
-                <input type="text" name="nickname">
-            </label>
-        </p>
-        <p>
-            <label>
-                Breed:
-                <input type="text" name="breed">
-            </label>
-        </p>
-        <p>
-            <label>
-                Birth Day:
-                <input type="date" name="birthday">
-            </label>
-        </p>
-        <p>
-            <input type="submit">
-        </p>
-    </form>
+    <a class="btn btn-secondary" aria-current="page" href="/add" role="button"
+       th:if="${isAdmin}">Add Pets</a>
+
 </div>
 </body>
 </html>

@@ -29,8 +29,9 @@
             <th scope="col">Breed</th>
             <th scope="col">Birthday</th>
             <th scope="col">Breeder Name</th>
-            <th scope="col">Reserved or not</th>
+<!--            <th scope="col">Reserved or not</th>-->
             <th scope="col">Reservation Date</th>
+            <th  th:if="${isLoggedIn}" scope="col">Reserve!</th>
         </tr>
 
         </thead>
@@ -43,8 +44,9 @@
                 <td th:text="${pet.breed}">Breed</td>
                 <td th:text="${pet.birthDay}">Birthday</td>
                 <td th:text="${pet.breeder}">Breeder Name</td>
-                <td th:text="${pet.isReserved}">Reserved or not</td>
+<!--                <td th:text="${pet.isReserved}">Reserved or not</td>-->
                 <td th:text="${pet.reservationDate}">Reservation Date</td>
+                <td th:if="${!pet.reserved && isLoggedIn}"><button type="button" class="btn btn-primary"><i class="far fa-eye">Reserve</i></button> </td>
             </tr>
 
         </th:block>

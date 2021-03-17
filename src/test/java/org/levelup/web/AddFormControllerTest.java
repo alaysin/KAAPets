@@ -18,6 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transaction;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.matches;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -44,18 +46,21 @@ public class AddFormControllerTest {
 
     @Test
     public void add() throws Exception {
+        LocalDate date = LocalDate.now().minusDays(10);
+        Pets add = new Pets("NicknameOne", "BreedOne", date);
         Pets added = new Pets("NicknameOne", "BreedOne");
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
-        Mockito.when(petsDAO.saveNewPetWithoutBD(matches("NicknameOne"), matches("BreedOne")))
-                .thenReturn(added);
-
+        Mockito.when(petsDAO.saveNewPet(matches("NicknameOne"), matches("BreedOne"), date))
+                .thenReturn(add);
+        System.out.println("-----");
         UserSession userSession = new UserSession();
         userSession.setUserLogin("admin");
         userSession.setAdmin(true);
-
+        System.out.println("-----");
         mvc.perform(post("/add")
                 .param("petsName", "NicknameOne")
                 .param("petsBreed", "BreedOne")
+                //.param("petsBirthDay", String.valueOf(date))
                 .sessionAttr("user-session", userSession)
         )
                 .andExpect(status().isOk())

@@ -32,9 +32,9 @@ public class AddFormController {
     private PetsDAO petsDAO;
 
     @GetMapping("/add")
-    public String add(
+    public String viewAddForm(
             Model model,
-            @ModelAttribute AddPetsForm form,
+            @ModelAttribute("form") AddPetsForm form,
             BindingResult bindingResult
     ) {
         model.addAttribute("form", form);
@@ -43,17 +43,17 @@ public class AddFormController {
     }
 
     @PostMapping("/add")
-    @Transactional
+    //@Transactional
     public String add(Model model,
-                      @Valid AddPetsForm form,
+                      @Valid @ModelAttribute("form") AddPetsForm form,
 //                      @RequestParam
 //                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //                      @ModelAttribute LocalDate birthDay
                       @ModelAttribute("user-session") UserSession session,
                       BindingResult bindingResult
     ) {
-        model.addAttribute("form", form);
-        model.addAttribute("bindingResult", bindingResult);
+//        model.addAttribute("form", form);
+//        model.addAttribute("bindingResult", bindingResult);
 
         if (session.getUserLogin() == null || !session.isAdmin()) {
             throw new RuntimeException("User is not admin");
@@ -81,7 +81,7 @@ public class AddFormController {
             return "addPet";
         }
 
-//            added = petsDAO.saveNewPet(nickname, breed, birthDay);
+//            added = petsDAO.saveNewPet(form.getPetsName(), form.getPetsBreed(), form.getPetsBirthDate());
 
 
         model.addAttribute("petsName", added.getNickname());

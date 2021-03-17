@@ -24,14 +24,13 @@ public class Pets {
 
     @Column(nullable = false, updatable = false, length = 50)
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    @Past
+    @javax.validation.constraints.PastOrPresent
     private LocalDate birthDay  = LocalDate.now();
 
     @Column(nullable = false, updatable = true)
-
     private boolean isReserved;
 
-    @Column(updatable = false, length = 50)
+    @Column(length = 50)
     private LocalDate reservationDate;// = LocalDate.now();
 
     @Enumerated

@@ -44,20 +44,21 @@ public class RegistrationFormControllerTest {
     public void registration() throws Exception {
         User added = new User("login", "password");
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
-        Mockito.when(usersDAO.saveNewUser(matches("login"), matches("password")))
+        Mockito.when(usersDAO.saveNewUserWithName(matches("login"), matches("password"), matches("name")))
                 .thenReturn(added);
         UserSession userSession = new UserSession();
 
         mvc.perform(post("/registration")
-                .param("login", "login")
+                .param("userLogin", "login")
                 .param("password", "password")
+                .param("userName", "name")
                 .sessionAttr("user-session", userSession)
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("login", "login"));
+                .andExpect(MockMvcResultMatchers.model().attribute("userLogin", "login"));
 
         Mockito.verify(usersDAO, Mockito.atLeast(1))
-                .saveNewUser("login", "password");
+                .saveNewUserWithName("login", "password", "name");
     }
 
 }

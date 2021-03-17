@@ -15,7 +15,8 @@ import javax.persistence.EntityManager;
                 type = FilterType.ASSIGNABLE_TYPE,
                 classes = {
                         AppJPAConfiguration.class,
-                        PetsBookingApplication.class}
+                        PetsBookingApplication.class
+                }
         )
 })
 public class TestWebConfiguration {

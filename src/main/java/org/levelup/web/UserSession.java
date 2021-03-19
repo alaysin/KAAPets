@@ -1,5 +1,7 @@
 package org.levelup.web;
 
+
+@Deprecated
 public class UserSession {
     private String userLogin;
     private boolean isAdmin;

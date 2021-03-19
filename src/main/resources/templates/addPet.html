@@ -5,7 +5,7 @@
     <title>New Pets Adding Form</title>
 </head>
 <body>
-<form action="/add" method="post" th:object="${form}">
+<form action="/admin/pets/add" method="post" th:object="${form}">
     <p>
         <label >
             Pet nickname:
@@ -32,6 +32,10 @@
                   th:text="${bindingResult.getFieldErrors('petsBirthDate')}"></span>
         </label>
     </p>
+    <input type="hidden"
+           th:name = "${_csrf.parameterName}"
+           th:value = "${_csrf.token}"
+    />
     <p>
         <input type="submit">
     </p>

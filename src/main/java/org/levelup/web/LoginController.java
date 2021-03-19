@@ -12,19 +12,19 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public RedirectView submitLoginForm(
-            @RequestParam String userName,
-            @RequestParam String password,
-            @ModelAttribute("user-session") UserSession session
-    ) {
-        if (userName.equals("admin") && password.equals("admin")) {
-            session.setUserLogin("admin");
-            session.setAdmin(true);
-            return new RedirectView("/");
-        } else {
-            return new RedirectView("/login");
-        }
-    }
+//    @PostMapping("/login")
+//    public RedirectView submitLoginForm(
+//            @RequestParam String userName,
+//            @RequestParam String password,
+//            @ModelAttribute("user-session") UserSession session
+//    ) {
+//        if (userName.equals("admin") && password.equals("admin")) {
+//            session.setUserLogin("admin");
+//            session.setAdmin(true);
+//            return new RedirectView("/");
+//        } else {
+//            return new RedirectView("/login");
+//        }
+//    }
 
 }

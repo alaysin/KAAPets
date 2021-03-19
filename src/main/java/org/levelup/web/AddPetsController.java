@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @SessionAttributes("user-session")
-public class AddFormController {
+public class AddPetsController {
     @ModelAttribute
     LocalDate initLocalDate() {
         return LocalDate.now();
@@ -31,7 +31,7 @@ public class AddFormController {
     @Autowired
     private PetsDAO petsDAO;
 
-    @GetMapping("/add")
+    @GetMapping("/admin/pets/add")
     public String viewAddForm(
             Model model,
             @ModelAttribute("form") AddPetsForm form,
@@ -42,7 +42,7 @@ public class AddFormController {
         return "addPet";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/pets/add")
     //@Transactional
     public String add(Model model,
                       @Valid @ModelAttribute("form") AddPetsForm form,

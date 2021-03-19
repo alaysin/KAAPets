@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -52,16 +54,18 @@ public class AddFormControllerTest {
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
         Mockito.when(petsDAO.saveNewPet(matches("NicknameOne"), matches("BreedOne"), date))
                 .thenReturn(add);
+//        System.out.println("-----");
+//        UserSession userSession = new UserSession();
+//        userSession.setUserLogin("admin");
+//        userSession.setAdmin(true);
+
         System.out.println("-----");
-        UserSession userSession = new UserSession();
-        userSession.setUserLogin("admin");
-        userSession.setAdmin(true);
-        System.out.println("-----");
-        mvc.perform(post("/add")
+        mvc.perform(post("/admin/pets/add")
+                .with(user("admin").roles("ADMIN"))
                 .param("petsName", "NicknameOne")
                 .param("petsBreed", "BreedOne")
                 //.param("petsBirthDay", String.valueOf(date))
-                .sessionAttr("user-session", userSession)
+                .with(csrf())
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("petsName", "NicknameOne"));

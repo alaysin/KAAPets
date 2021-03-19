@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestWebConfiguration.class)
@@ -45,10 +46,10 @@ public class StartPageControllerTest {
 
     @Test
     public void testNoPetsWithLoggedInAdmin() throws Exception {
-        UserSession userSession = new UserSession();
-        userSession.setUserLogin("admin");
-        userSession.setAdmin(true);
-        mvc.perform(get("/").sessionAttr("user-session", userSession))
+//        UserSession userSession = new UserSession();
+//        userSession.setUserLogin("admin");
+//        userSession.setAdmin(true);
+        mvc.perform(get("/").with(user("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("subTitle", "Hello, admin, you are using my Pet Booking Service!"))
                 .andExpect(model().attribute("pets", Collections.emptyList()))

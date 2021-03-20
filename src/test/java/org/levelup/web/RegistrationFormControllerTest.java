@@ -21,6 +21,7 @@ import javax.persistence.EntityTransaction;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.matches;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -46,13 +47,12 @@ public class RegistrationFormControllerTest {
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
         Mockito.when(usersDAO.saveNewUserWithName(matches("login"), matches("password"), matches("name")))
                 .thenReturn(added);
-        UserSession userSession = new UserSession();
 
         mvc.perform(post("/registration")
                 .param("userLogin", "login")
                 .param("password", "password")
                 .param("userName", "name")
-                .sessionAttr("user-session", userSession)
+                .with(csrf())
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("userLogin", "login"));

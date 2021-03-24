@@ -1,3 +1,8 @@
 language: java
 jdk:
   - openjdk15
+addons:
+  sonarcloud:
+    organization: "alaysin"
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=alaysin_KAAPets

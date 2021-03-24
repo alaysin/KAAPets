@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
-@SessionAttributes("user-session")
+//@SessionAttributes("user-session")
 public class AddPetsController {
     @ModelAttribute
     LocalDate initLocalDate() {

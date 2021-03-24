@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("user-session")
+//@SessionAttributes("user-session")
 public class StartPageController {
 
     private final PetsDAO petsDAO;

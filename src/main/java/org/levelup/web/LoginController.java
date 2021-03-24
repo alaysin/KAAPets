@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@SessionAttributes("user-session")
+//@SessionAttributes("user-session")
 public class LoginController {
     @GetMapping("/login")
     public String showLoginForm() {

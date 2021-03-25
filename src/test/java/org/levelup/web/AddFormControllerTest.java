@@ -55,36 +55,33 @@ public class AddFormControllerTest {
 
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //    this.dateOfBirth = LocalDate.parse(date, formatter);
-        LocalDate date = LocalDate.now().minusDays(10);
+        LocalDate date = LocalDate.now();
+        String one = "NicknameOne";
+        String two = "BreedOne";
         Pets add = new Pets("NicknameOne", "BreedOne", date);
-        Pets added = new Pets("NicknameOne", "BreedOne");
         System.out.println("oy wse");
 
-/*
+
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
-        Mockito.when(petsDAO.saveNewPet(matches("NicknameOne"), matches("BreedOne"), date))
-                //LocalDate.parse("11/11/2020", DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
+        Mockito.when(petsDAO.saveNewPet(one, two, date))
                 .thenReturn(add);
-//        System.out.println("-----");
-//        UserSession userSession = new UserSession();
-//        userSession.setUserLogin("admin");
-//        userSession.setAdmin(true);
+
 
         System.out.println("-----");
         mvc.perform(post("/admin/pets/add")
                 .with(user("admin").roles("ADMIN"))
                 .param("petsName", "NicknameOne")
                 .param("petsBreed", "BreedOne")
-                
-                .param("petsBirthDay", "11/11/2020")
+                .param("petsBirthDay", "2021-03-25")
                 .with(csrf())
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("petsName", "NicknameOne"));
 
         Mockito.verify(petsDAO, Mockito.atLeast(1))
-                .saveNewPetWithoutBD("NicknameOne", "BreedOne");
-*/
+                .saveNewPet(one, two, date);
+
+
     }
 
     //Добавить секьюрити, пересмотреть тест

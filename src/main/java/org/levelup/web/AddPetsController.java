@@ -49,15 +49,15 @@ public class AddPetsController {
 //                      @RequestParam
 //                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //                      @ModelAttribute LocalDate birthDay
-                      @ModelAttribute("user-session") UserSession session,
+                      //@ModelAttribute("user-session") UserSession session,
                       BindingResult bindingResult
     ) {
 //        model.addAttribute("form", form);
 //        model.addAttribute("bindingResult", bindingResult);
 
-        if (session.getUserLogin() == null || !session.isAdmin()) {
-            throw new RuntimeException("User is not admin");
-        }
+//        if (session.getUserLogin() == null || !session.isAdmin()) {
+//            throw new RuntimeException("User is not admin");
+//        }
 
         if (bindingResult.hasErrors()) {
             return "addPet";

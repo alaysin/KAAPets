@@ -113,9 +113,6 @@ public class Pets {
         this.breeder = breeder;
     }
 
-    public boolean isReserved() {
-        return isReserved;
-    }
 
     public void setReserverd(boolean isReserved) {
         this.isReserved = isReserved;
@@ -137,6 +134,10 @@ public class Pets {
         this.status = status;
     }
 
+    public boolean isReserved() {
+        return isReserved;
+    }
+
     public void setReserved(boolean reserved) {
         isReserved = reserved;
     }
@@ -148,4 +149,10 @@ public class Pets {
     public void setReservationDate(LocalDate reservationDate) {
         this.reservationDate = reservationDate;
     }
+
+    public void setReserve() {
+        reservationDate = LocalDate.now();
+        isReserved= true;
+    }
+
 }

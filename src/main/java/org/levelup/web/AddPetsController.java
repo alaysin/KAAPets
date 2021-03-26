@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -81,14 +82,21 @@ public class AddPetsController {
             return "addPet";
         }
 
-//            added = petsDAO.saveNewPet(form.getPetsName(), form.getPetsBreed(), form.getPetsBirthDate());
-
-
         model.addAttribute("petsName", added.getNickname());
         model.addAttribute("petsBreed", added.getBreed());
         model.addAttribute("petsBirthDate", added.getBirthDay());
         return "added";
     }
+
+    @GetMapping("/admin/pets/{id}/reserve")
+    public ModelAndView reserve(@PathVariable int id) {
+      Pets pets = petsDAO.findById(id).get();
+        pets.setReserve();
+        petsDAO.save(pets);
+
+        return new ModelAndView("redirect:/");
+    }
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

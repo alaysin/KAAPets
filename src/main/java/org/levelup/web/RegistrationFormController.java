@@ -4,6 +4,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.levelup.model.User;
 import org.levelup.model.UsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 
 @Controller
 public class RegistrationFormController {
+
     @ModelAttribute
     LocalDate initLocalDate() {
         return LocalDate.now();
@@ -24,13 +26,18 @@ public class RegistrationFormController {
     @Autowired
     private UsersDAO usersDAO;
 
+    private final PasswordEncoder encoder;
+
+    public RegistrationFormController(PasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
 
     @PostMapping("/registration")
     @Transactional
     public String registration(
             Model model,
-            @Valid AddUserForm form,
-            @ModelAttribute("user-session") UserSession session,
+            @Valid @ModelAttribute("form") AddUserForm form,
+//            @ModelAttribute("user-session") UserSession session,
             BindingResult bindingResult
     ) {
         model.addAttribute("form", form);
@@ -44,7 +51,8 @@ public class RegistrationFormController {
         User registered;
 
         try {
-            registered = usersDAO.saveNewUserWithName(form.getUserLogin(), form.getPassword(), form.getUserName());
+            registered = createUser(form);
+                    //usersDAO.saveNewUserWithName(form.getUserLogin(), form.getPassword(), form.getUserName());
         } catch (ConstraintViolationException constraintViolationException) {
             bindingResult.addError(new FieldError("form",
                     "userLogin", "Login is not available"
@@ -59,7 +67,7 @@ public class RegistrationFormController {
     }
 
     @GetMapping("/registration")
-    public String registration(
+    public String openRegistrationForm(
             Model model,
             @ModelAttribute AddUserForm form,
             BindingResult bindingResult
@@ -68,6 +76,12 @@ public class RegistrationFormController {
         model.addAttribute("bindingResult", bindingResult);
 
         return "registration";
+    }
+
+    private User createUser(AddUserForm addUserForm) {
+        User created;
+        created = usersDAO.saveNewUserWithName(addUserForm.getUserLogin(), encoder.encode(addUserForm.getPassword()), addUserForm.getUserName());
+        return created;
     }
 
 }

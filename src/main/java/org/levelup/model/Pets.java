@@ -30,7 +30,7 @@ public class Pets {
     private boolean isReserved;
 
     @Column(length = 50)
-    private LocalDate reservationDate;// = LocalDate.now();
+    private LocalDate reservationDate;
 
     @Enumerated
     private PetStatus status = PetStatus.READYFORBOOKING;

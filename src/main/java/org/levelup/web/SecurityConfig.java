@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/**/*.js", "/**/*.css").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/pets/**").hasRole("ADMIN")
+                .antMatchers("/pets/**").hasRole("USER")
                 .anyRequest().denyAll();
 
 

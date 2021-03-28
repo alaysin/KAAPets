@@ -64,7 +64,7 @@ public class AddPetsController {
         return "added";
     }
 
-    @GetMapping("/admin/pets/{id}/reserve")
+    @GetMapping("/pets/{id}/reserve")
     public ModelAndView reserve(@PathVariable int id) {
         if (petsDAO.findById(id).isPresent()) {
             Pets pets = petsDAO.findById(id).get();

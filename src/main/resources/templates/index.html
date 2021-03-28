@@ -50,7 +50,7 @@
                 <td th:text="${pet.breeder}">Breeder Name</td>
 <!--                <td th:text="${pet.isReserved}">Reserved or not</td>-->
                 <td th:text="${pet.reservationDate}">Reservation Date</td>
-                <td th:if="${!pet.reserved && isLoggedIn}"><a class="btn btn-primary" th:href="@{/admin/pets/{id}/reserve(id=${pet.id})}">Reserve</a> </td>
+                <td th:if="${!pet.reserved && isLoggedIn}"><a class="btn btn-primary" th:href="@{/pets/{id}/reserve(id=${pet.id})}">Reserve</a> </td>
             </tr>
 
         </th:block>

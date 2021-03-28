@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 import static org.junit.Assert.*;
@@ -64,15 +63,11 @@ public class UsersDAOTest {
     @Test
     public void saveNewUserWithName() {
         User added = usersDAO.saveNewUserWithName("Login", "Password", "Name");
-
-//        manager.refresh(added);
     }
 
     @Test
     public void saveNewUser() {
         User added = usersDAO.saveNewUser("Login", "Password");
-
-//        manager.refresh(added);
     }
 
 

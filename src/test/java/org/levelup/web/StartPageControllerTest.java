@@ -11,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,9 +44,6 @@ public class StartPageControllerTest {
 
     @Test
     public void testNoPetsWithLoggedInAdmin() throws Exception {
-//        UserSession userSession = new UserSession();
-//        userSession.setUserLogin("admin");
-//        userSession.setAdmin(true);
         mvc.perform(get("/").with(user("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("subTitle", "Hello, admin, you are using my Pet Booking Service!"))

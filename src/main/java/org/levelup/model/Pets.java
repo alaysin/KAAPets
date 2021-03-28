@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Entity
@@ -60,7 +59,6 @@ public class Pets {
         this.breed = breed;
         this.birthDay = birthDay;
         this.isReserved = false;
-//        this.breeder = new Breeder("Default Breeder name");
     }
 
     public Pets(String nickname, String breed) {
@@ -68,7 +66,6 @@ public class Pets {
         this.breed = breed;
         this.birthDay = LocalDate.now().minusMonths(10);
         this.isReserved = false;
-//        this.breeder = new Breeder("Default Breeder name");
 
     }
 

@@ -8,16 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@SessionAttributes("user-session")
 public class StartPageController {
 
     private final PetsDAO petsDAO;
-
 
     public StartPageController(PetsDAO petsDAO) {
         this.petsDAO = petsDAO;
@@ -28,7 +24,6 @@ public class StartPageController {
             Model model,
             @RequestParam(defaultValue = "10") int count,
             Authentication authentication
-//            @ModelAttribute("user-session") UserSession userSession
     ) {
         String subTitle;
         boolean isAdmin = false;
@@ -57,35 +52,4 @@ public class StartPageController {
         return petsDAO.findAll();
     }
 
-//    @ModelAttribute("user-session")
-//    public UserSession createUserSession() {
-//        return new UserSession();
-//    }
-
-    boolean isReserved = true;
-
-//    @PostMapping("/")
-//    public String reserve(
-//            Model model,
-//            @RequestParam int id,
-//            @RequestParam boolean isReserved,
-//            @RequestParam LocalDate date,
-//            @ModelAttribute ("user-session") UserSession session
-//            ){
-//        return ("/");
-//    }
-
-//    private List<Pets> loadPets(int count) {
-//        ArrayList<Pets> pets = new ArrayList<>();
-//        LocalDate date = LocalDate.of(2019, 1, 1);
-//        Breeder breeder = new Breeder("test");
-//        for (int i = 0; i < count; i++) {
-//            pets.add(new Pets("nickname" + i, "breed" + i, date.plusDays(i), breeder));
-//
-//        }
-//        Pets pets1 = new Pets("Test", "Test", date, breeder);
-//        pets1.setReserverd(true);
-//        pets.add(pets1);
-//        return pets;
-//    }
 }

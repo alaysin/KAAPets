@@ -113,14 +113,10 @@ public class PetsDAOTest {
     @Test
     public void saveNewPet() {
         Pets added = petsDAO.saveNewPet("Test", "Test", date.minusDays(10));
-
-//        manager.refresh(added);
     }
 
     @Test
     public void saveNewPetWithoutBD() {
         Pets added = petsDAO.saveNewPetWithoutBD("Test", "Test");
-
-//        manager.refresh(added);
     }
 }

@@ -11,20 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.matches;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,12 +49,10 @@ public class AddFormControllerTest {
 
 
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//    this.dateOfBirth = LocalDate.parse(date, formatter);
         LocalDate date = LocalDate.now();
         String one = "NicknameOne";
         String two = "BreedOne";
         Pets add = new Pets("NicknameOne", "BreedOne", date);
-        System.out.println("oy wse");
 
 
         Mockito.when(entityManager.getTransaction()).thenReturn(tx);
@@ -67,7 +60,6 @@ public class AddFormControllerTest {
                 .thenReturn(add);
 
 
-        System.out.println("-----");
         mvc.perform(post("/admin/pets/add")
                 .with(user("admin").roles("ADMIN"))
                 .param("petsName", "NicknameOne")

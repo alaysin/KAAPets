@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-//@Table(name = "Users")
 @NamedQueries({
         @NamedQuery(name = "findByIsAdmin", query = "from User where isAdmin = :isAdmin"),
 })

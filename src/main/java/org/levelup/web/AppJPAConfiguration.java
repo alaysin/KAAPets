@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -13,10 +12,6 @@ import javax.persistence.Persistence;
 @EnableJpaRepositories(basePackages = "org.levelup.model")
 @EnableTransactionManagement
 public class AppJPAConfiguration {
-//    @Bean
-//    public EntityManager entityManager(EntityManagerFactory factory) {
-//        return factory.createEntityManager();
-//    }
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {

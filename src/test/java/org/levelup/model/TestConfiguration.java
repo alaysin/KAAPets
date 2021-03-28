@@ -10,7 +10,6 @@ import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -20,11 +19,6 @@ import javax.persistence.Persistence;
 @EnableTransactionManagement
 @EnableWebMvc
 public class TestConfiguration {
-
-//    @Bean
-//    public EntityManager entityManager(EntityManagerFactory factory) {
-//        return factory.createEntityManager();
-//    }
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {

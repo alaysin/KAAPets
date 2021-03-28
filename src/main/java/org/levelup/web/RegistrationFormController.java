@@ -11,12 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Controller
-//@SessionAttributes("user-session")
 public class RegistrationFormController {
     @ModelAttribute
     LocalDate initLocalDate() {
@@ -38,9 +36,6 @@ public class RegistrationFormController {
         model.addAttribute("form", form);
         model.addAttribute("bindingResult", bindingResult);
 
-//        if (session.getUserLogin() != null) {
-//            throw new RuntimeException("User is already registred");
-//        }
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -63,20 +58,6 @@ public class RegistrationFormController {
         return "/login" ;
     }
 
-//        manager.getTransaction().begin();
-//        try {
-//            registered = usersDAO.saveNewUser(login, password);
-//            manager.getTransaction().commit();
-//        } finally {
-//            if (manager.getTransaction().isActive()) {
-//                manager.getTransaction().rollback();
-//            }
-//        }
-//        model.addAttribute("login", registered.getLogin());
-//        return "index";
-//    }
-
-
     @GetMapping("/registration")
     public String registration(
             Model model,
@@ -88,14 +69,5 @@ public class RegistrationFormController {
 
         return "registration";
     }
-
-//    @PostMapping ("/register")
-//    public RedirectView submitRegisterForm (
-//            @RequestParam String login,
-//            @RequestParam String password,
-//            @ModelAttribute("user-session") UserSession session
-//    ) {
-//        return new RedirectView("/");
-//    }
 
 }

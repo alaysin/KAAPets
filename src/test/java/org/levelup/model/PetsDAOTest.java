@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,19 +24,27 @@ import static org.junit.Assert.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class PetsDAOTest {
 
-    @PersistenceContext
-    private EntityManager manager;
+//    @PersistenceContext
+//    private EntityManager manager;
 
     @Autowired
     private PetsDAO petsDAO;
+
+    @Autowired
+    private UsersDAO usersDAO;
+
+    @Autowired
+    private BreedersDAO breedersDAO;
 
     private LocalDate date = LocalDate.of(2020, 1, 1);
 
     private LocalDate reservDate = LocalDate.now();
 
     @Before
+    @Transactional
     public void configure() {
 
         Breeder breeder = new Breeder("Sanych");
@@ -45,14 +54,17 @@ public class PetsDAOTest {
 
         User user = new User("loginTest", "password", false, "Alex");
 
+        breedersDAO.save(breeder);
+        usersDAO.save(user);
+
         pet.setNewOwner(user);
         pet.setReserverd(true);
         pet2.setReserverd(true);
         pet.setReservationDate(reservDate.plusDays(2));
         pet2.setReservationDate(reservDate);
 
-        manager.persist(breeder);
-        manager.persist(user);
+//        manager.persist(breeder);
+//        manager.persist(user);
         petsDAO.save(pet);
         petsDAO.save(pet2);
     }
@@ -113,10 +125,12 @@ public class PetsDAOTest {
     @Test
     public void saveNewPet() {
         Pets added = petsDAO.saveNewPet("Test", "Test", date.minusDays(10));
+        assertTrue(petsDAO.findById(added.getId()).isPresent());
     }
 
     @Test
     public void saveNewPetWithoutBD() {
         Pets added = petsDAO.saveNewPetWithoutBD("Test", "Test");
+        assertTrue(petsDAO.findById(added.getId()).isPresent());
     }
 }

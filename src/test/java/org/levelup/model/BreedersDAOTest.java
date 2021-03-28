@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,11 @@ import static org.junit.Assert.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class BreedersDAOTest {
 
-    @PersistenceContext
-    private EntityManager manager;
+//    @PersistenceContext
+//    private EntityManager manager;
 
     @Autowired
     private BreedersDAO breedersDAO;
@@ -46,6 +48,7 @@ public class BreedersDAOTest {
     @Test
     public void saveNewBreeder() {
         Breeder breeder = breedersDAO.saveNewBreeder("test");
+        assertTrue(breedersDAO.findById(breeder.getId()).isPresent());
     }
 
 

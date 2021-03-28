@@ -66,11 +66,16 @@ public class AddPetsController {
 
     @GetMapping("/admin/pets/{id}/reserve")
     public ModelAndView reserve(@PathVariable int id) {
-      Pets pets = petsDAO.findById(id).get();
-        pets.setReserve();
-        petsDAO.save(pets);
+        if (petsDAO.findById(id).isPresent()) {
+            Pets pets = petsDAO.findById(id).get();
+            pets.setReserve();
+            petsDAO.save(pets);
+            return new ModelAndView("redirect:/");
+        }else {
+            return new ModelAndView("redirect:/error");
+        }
 
-        return new ModelAndView("redirect:/");
+
     }
 
     @InitBinder
